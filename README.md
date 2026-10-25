@@ -5,5 +5,10 @@ Oshrit's repository for primary coding exercises
   <img src="https://capsule-render.vercel.app/api?text=Hey Everyone!😻&animation=fadeIn&type=waving&color=0:0d0d0d,100:4a0e4e&fontColor=ffb7c5&height=120"/>
 </p>
 I'm Oshrit I like cats and hiking. my favorit kinds of sports are Yoga and runinng.
-I have background experience in python but not enough in my opinion.
+I have background experience in python 
+Lets connect! 
+<a href="www.linkedin.com/in/oshrit-geller">
+
+<img width="512" height="512" alt="image" src="https://github.com/user-attachments/assets/735a5f96-1197-48b6-af04-e2d58bbe6f06" />
+</a>
 
