@@ -4,13 +4,13 @@
 
 # I'm Oshrit! 👋
 
-I like cats and hiking, my favorite sport is yoga, and I love microbiology 🧫
+I like cats and hiking, my favorite sport is yoga, and I love microbiology  in The Dar lad, where I currently do my masters🧫
 
 <p align="center">
   <img src="https://media.giphy.com/media/XeY8bdB5ax2N0q8kdY/giphy.gif" width="300"/>
 </p>
 
-I have background experience in Python 🐍
+I have background experience in Python 🐍 but I want this course to be time dedicated to enhancing it💪🏻
 
 ## 🤝 Let's connect!
 
