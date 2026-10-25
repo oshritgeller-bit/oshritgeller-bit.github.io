@@ -4,7 +4,10 @@ Oshrit's repository for primary coding exercises
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?text=Hey Everyone!😻&animation=fadeIn&type=waving&color=0:0d0d0d,100:4a0e4e&fontColor=ffb7c5&height=120"/>
 </p>
-I'm Oshrit I like cats and hiking. my favorit kinds of sports are Yoga and runinng.
+I'm Oshrit I like cats and hiking. My favorite kinds of sport is Yoga 
+<p align="center">
+  <img src="https://media.giphy.com/media/XeY8bdB5ax2N0q8kdY/giphy.gif" width="300"/>
+</p>
 I have background experience in python 
 Lets connect! 
 <a href="www.linkedin.com/in/oshrit-geller">
