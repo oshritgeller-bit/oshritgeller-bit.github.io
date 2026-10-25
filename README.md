@@ -4,7 +4,7 @@
 
 # I'm Oshrit! 👋
 
-I like cats and hiking, my favorite sport is yoga, and I love microbiology  in The Dar lad, where I currently do my masters🧫
+I like cats and hiking, my favorite sport is yoga, and I love microbiology  in The Dar lab, where I currently do my masters🧫
 
 <p align="center">
   <img src="https://media.giphy.com/media/XeY8bdB5ax2N0q8kdY/giphy.gif" width="300"/>
