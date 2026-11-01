@@ -4,6 +4,14 @@
 
 # I'm Oshrit! 👋
 
+<h2>Academic background</h2>
+<p>
+  M.Sc. student at the Weizmann Institute of Science, in the
+  <a href="https://www.weizmann.ac.il/plants/dar/" target="_blank">Dar lab</a>,
+  studying <i>Pseudomonas aeruginosa</i> and <i>Staphylococcus aureus</i> biofilms.
+</p>
+<p>B.Sc. in ___, ___ University (year)</p>
+
 I like cats and hiking, my favorite sport is yoga, and I love microbiology  in The Dar lab, where I currently do my masters🧫
 
 <p align="center">
