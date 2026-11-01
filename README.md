@@ -10,9 +10,9 @@
   <a href="https://www.weizmann.ac.il/plants/dar/" target="_blank">Dar lab</a>,
   studying <i>Pseudomonas aeruginosa</i> and <i>Staphylococcus aureus</i> biofilms.
 </p>
-<p>B.Sc. in ___, ___ University (year)</p>
+<p>B.Sc. in Tel Aviv University (Biology Excelence program </p>
 
-I like cats and hiking, my favorite sport is yoga, and I love microbiology  in The Dar lab, where I currently do my masters🧫
+I like cats and hiking, my favorite sport is yoga, and I love microbiology  in the Dar lab, where I currently do my master's 🧫
 
 <p align="center">
   <img src="https://media.giphy.com/media/XeY8bdB5ax2N0q8kdY/giphy.gif" width="300"/>
