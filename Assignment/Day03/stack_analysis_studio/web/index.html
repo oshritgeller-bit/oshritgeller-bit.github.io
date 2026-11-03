@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark light">
+    <title>Stack Analysis Studio</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <div class="app-shell sidebar-is-collapsed" id="appShell">
+      <aside class="sidebar collapsed" id="sidebar">
+        <div class="sidebar-main">
+          <div class="brand">
+            <div class="brand-mark" aria-hidden="true">S</div>
+            <div class="brand-copy">
+              <strong>Stack</strong>
+              <span>ANALYSIS STUDIO</span>
+            </div>
+          </div>
+          <nav class="primary-nav" aria-label="Primary navigation">
+            <button class="nav-button active" id="mainNav" type="button" aria-current="page">
+              <span class="nav-icon" aria-hidden="true">⌂</span>
+              <span class="nav-label">Main screen</span>
+            </button>
+            <button class="nav-button" id="dataNav" type="button" title="Analysis data" disabled>
+              <span class="nav-icon" aria-hidden="true">▤</span>
+              <span class="nav-label">Analysis data</span>
+            </button>
+          </nav>
+          <div class="sidebar-tools">
+            <label class="sidebar-label" id="searchLabel" for="globalSearch" hidden>Search results</label>
+            <label class="search-control" id="searchControl" hidden>
+              <span aria-hidden="true">⌕</span>
+              <input id="globalSearch" type="search" placeholder="Search…" autocomplete="off">
+              <kbd>Ctrl K</kbd>
+            </label>
+          </div>
+          <div class="sidebar-spacer"></div>
+          <div class="sidebar-actions" aria-label="Analysis files">
+            <button class="nav-button" id="importAnalysisButton" type="button" title="Import analysis">
+              <span class="nav-icon" aria-hidden="true">⇧</span>
+              <span class="nav-label">Import</span>
+            </button>
+            <button class="nav-button sidebar-export" id="exportButton" type="button" disabled title="Export analysis (Markdown)">
+              <span class="nav-icon" aria-hidden="true">⇩</span>
+              <span class="nav-label">Export report</span>
+            </button>
+            <button class="nav-button sidebar-export" id="exportCsvButton" type="button" disabled title="Export objects table (CSV)">
+              <span class="nav-icon" aria-hidden="true">▦</span>
+              <span class="nav-label">Export CSV</span>
+            </button>
+          </div>
+          <label class="sidebar-label" for="themeSelect">Appearance</label>
+          <select id="themeSelect" class="theme-select">
+            <option>Dark</option>
+            <option>Light</option>
+            <option>System</option>
+          </select>
+          <button class="nav-button settings-button" id="settingsButton" type="button">
+            <span class="nav-icon" aria-hidden="true">⚙</span>
+            <span class="nav-label">Settings</span>
+          </button>
+        </div>
+        <button class="sidebar-toggle" id="sidebarToggle" type="button"
+          aria-label="Expand sidebar" title="Expand sidebar">›</button>
+      </aside>
+
+      <main class="main-area">
+        <header class="topbar">
+          <div class="window-title">
+            <div class="eyebrow" id="pageEyebrow">WORKSPACE</div>
+            <h1 id="pageTitle">Stack Analysis Studio</h1>
+          </div>
+          <div class="slice-indicator" id="sliceIndicator" hidden></div>
+        </header>
+
+        <section class="view active" id="inputView" aria-labelledby="inputHeading">
+          <div class="welcome">
+            <div>
+              <div class="eyebrow">3D STACK WORKSPACE</div>
+              <h2 id="inputHeading">Start an analysis</h2>
+              <p>Load a z-stack into napari, check its calibration, then measure z-profiles and 3D objects.</p>
+            </div>
+            <div class="welcome-orbit" aria-hidden="true">
+              <span class="orbit orbit-one"></span>
+              <span class="orbit orbit-two"></span>
+              <span class="orbit-core">S</span>
+            </div>
+          </div>
+
+          <section class="surface fetch-card" aria-labelledby="sampleHeading">
+            <div class="section-heading">
+              <div class="section-icon" aria-hidden="true">⧉</div>
+              <div>
+                <h3 id="sampleHeading">Load a sample stack</h3>
+                <p>napari sample data only. cells3d is downloaded once; the synthetic stack works offline.</p>
+              </div>
+            </div>
+            <div class="sample-row">
+              <label class="sr-only" for="sampleSelect">Sample</label>
+              <select id="sampleSelect" class="text-input"></select>
+              <button class="button button-primary" id="loadSampleButton" type="button">Load sample</button>
+              <button class="button button-quiet" id="clearStackButton" type="button" disabled>Clear stack</button>
+            </div>
+            <p class="inline-status" id="sampleStatus" role="status">No stack loaded.</p>
+          </section>
+
+          <section class="surface input-card" aria-labelledby="calibrationHeading">
+            <div class="section-heading">
+              <div class="section-icon" aria-hidden="true">⟷</div>
+              <div>
+                <h3 id="calibrationHeading">Calibration and display</h3>
+                <p>Voxel size sets the scale bar and every physical value. Changing it clears the analysis.</p>
+              </div>
+            </div>
+            <form id="calibrationForm" class="calibration-grid" novalidate>
+              <label class="field-label" for="voxelZ">Voxel z
+                <input id="voxelZ" class="text-input" type="number" step="any" min="0" disabled>
+              </label>
+              <label class="field-label" for="voxelY">Voxel y
+                <input id="voxelY" class="text-input" type="number" step="any" min="0" disabled>
+              </label>
+              <label class="field-label" for="voxelX">Voxel x
+                <input id="voxelX" class="text-input" type="number" step="any" min="0" disabled>
+              </label>
+              <label class="field-label" for="unitSelect">Unit
+                <select id="unitSelect" class="text-input" disabled></select>
+              </label>
+              <button class="button button-secondary" id="applyCalibrationButton" type="submit" disabled>Apply</button>
+            </form>
+            <div class="display-row">
+              <label class="toggle-row" for="scaleBarToggle">
+                <span>Scale bar</span>
+                <input id="scaleBarToggle" type="checkbox" checked disabled>
+              </label>
+              <div class="segmented-control" role="group" aria-label="Display dimensions">
+                <button class="segment active" id="view2d" type="button" aria-pressed="true" disabled>2D</button>
+                <button class="segment" id="view3d" type="button" aria-pressed="false" disabled>3D</button>
+              </div>
+              <button class="button button-quiet" id="resetViewButton" type="button" disabled>Reset view</button>
+              <button class="button button-quiet" id="screenshotButton" type="button" disabled>Save screenshot</button>
+            </div>
+          </section>
+
+          <section class="surface input-card" aria-labelledby="settingsHeading">
+            <div class="section-heading">
+              <div class="section-icon" aria-hidden="true">◎</div>
+              <div>
+                <h3 id="settingsHeading">Analysis settings</h3>
+                <p>Sigma, distances and volumes are in calibrated units.</p>
+              </div>
+            </div>
+            <form id="analysisForm" class="analysis-grid" novalidate>
+              <label class="field-label" for="channelSelect">Channel
+                <select id="channelSelect" class="text-input" disabled></select>
+              </label>
+              <label class="field-label" for="methodSelect">Threshold method
+                <select id="methodSelect" class="text-input">
+                  <option value="otsu">Otsu</option>
+                  <option value="li">Li</option>
+                  <option value="manual">Manual</option>
+                </select>
+              </label>
+              <label class="field-label" for="manualThreshold">Manual threshold
+                <input id="manualThreshold" class="text-input" type="number" step="any" disabled placeholder="Intensity">
+              </label>
+              <label class="field-label" for="sigmaInput"><span>Smoothing sigma <span class="optional unit-label"></span></span>
+                <input id="sigmaInput" class="text-input" type="number" step="any" min="0" value="0.5">
+              </label>
+              <label class="field-label" for="minVolumeInput"><span>Minimum volume <span class="optional unit-label" data-power="3"></span></span>
+                <input id="minVolumeInput" class="text-input" type="number" step="any" min="0" value="5">
+              </label>
+              <label class="field-label" for="minDistanceInput"><span>Minimum distance <span class="optional unit-label"></span></span>
+                <input id="minDistanceInput" class="text-input" type="number" step="any" min="0" value="2">
+              </label>
+              <label class="toggle-row split-toggle" for="splitToggle">
+                <span>Split touching objects (watershed)</span>
+                <input id="splitToggle" type="checkbox" checked>
+              </label>
+              <button class="button button-primary analyse-button" id="analyzeButton" type="submit" disabled>Analyse stack <span aria-hidden="true">→</span></button>
+            </form>
+          </section>
+          <div class="status-line" id="appStatus" role="status" aria-live="polite"></div>
+        </section>
+
+        <section class="view results-view" id="resultsView" hidden aria-label="Analysis results">
+          <div class="results-heading">
+            <div>
+              <div class="eyebrow" id="resultContext">STACK ANALYSIS</div>
+              <h2 id="resultName"></h2>
+              <p id="resultSubtitle"></p>
+            </div>
+            <button class="button button-secondary" id="backToInput" type="button">← Settings</button>
+          </div>
+          <div id="categoryTabs" class="category-tabs" role="tablist" aria-label="Analysis categories"></div>
+          <div class="results-content" id="resultsContent"></div>
+          <section class="search-results surface" id="searchResults" hidden aria-live="polite">
+            <div class="search-results-heading">
+              <div>
+                <div class="eyebrow">GLOBAL SEARCH</div>
+                <h3 id="searchResultsTitle">Matching values</h3>
+              </div>
+              <button class="button button-quiet" id="clearSearch" type="button">Clear search</button>
+            </div>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead><tr><th>Category</th><th>Metric</th><th>Value</th></tr></thead>
+                <tbody id="searchResultsBody"></tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <dialog class="settings-dialog" id="settingsDialog">
+      <form method="dialog" id="settingsForm">
+        <div class="dialog-heading">
+          <div><div class="eyebrow">PREFERENCES</div><h2>App settings</h2></div>
+          <button class="icon-button" value="cancel" aria-label="Close settings">×</button>
+        </div>
+        <fieldset class="settings-section">
+          <legend>Result categories</legend>
+          <p>Choose which categories appear after an analysis.</p>
+          <div id="categorySettings" class="category-settings"></div>
+        </fieldset>
+        <fieldset class="settings-section">
+          <legend>Window and text</legend>
+          <label class="setting-row" for="fontSizeSetting">
+            <span>Font size</span>
+            <select id="fontSizeSetting" class="text-input">
+              <option value="8">8 pt</option><option value="9">9 pt</option>
+              <option value="10">10 pt</option><option value="11">11 pt</option>
+              <option value="12">12 pt</option><option value="13">13 pt</option>
+              <option value="14">14 pt</option><option value="15">15 pt</option>
+              <option value="16">16 pt</option><option value="17">17 pt</option>
+              <option value="18">18 pt</option><option value="19">19 pt</option>
+              <option value="20">20 pt</option><option value="21">21 pt</option>
+              <option value="22">22 pt</option><option value="23">23 pt</option>
+              <option value="24">24 pt</option>
+            </select>
+          </label>
+          <label class="setting-row" for="startMaximized">
+            <span>Start maximized in a normal window</span>
+            <input id="startMaximized" type="checkbox">
+          </label>
+          <label class="setting-row" for="fullScreenSetting">
+            <span>Use full-screen mode</span>
+            <input id="fullScreenSetting" type="checkbox">
+          </label>
+          <label class="setting-row" for="enableReferenceLinks">
+            <span>Enable reference links in section titles</span>
+            <input id="enableReferenceLinks" type="checkbox">
+          </label>
+        </fieldset>
+        <div class="dialog-actions">
+          <button class="button button-secondary" value="cancel">Cancel</button>
+          <button class="button button-primary" id="saveSettings" type="button">Save settings</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
